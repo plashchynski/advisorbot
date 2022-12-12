@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.10)
 # Define the project
 project(advisorbot)
 
-# Following the dicussion on allowed CPP version here:
+# Following the dicussion on allowed C++ version here:
 # https://www.coursera.org/learn/uol-object-oriented-programming/discussions/groups/7OvPlihdEe2VsgoeiZ5qVw/threads/im0JLU7XEe2vVg6vl34jZQ
 set(CMAKE_CXX_STANDARD 17)
 
@@ -17,3 +17,6 @@ add_library(Wallet src/Wallet.cpp)
 # Definition for the advisorbot binary
 add_executable(advisorbot src/main.cpp)
 target_link_libraries(advisorbot CSVReader MerkelMain OrderBook OrderBookEntry Wallet)
+
+# Copy CSV data file to build directory
+configure_file(data/20200601.csv 20200601.csv COPYONLY)
