@@ -1,7 +1,7 @@
-#include "ApplicationMain.h"
+#include "ChatMain.h"
 
 int main()
 {   
-    ApplicationMain app{};
-    app.init();
+    ChatMain chat{};
+    chat.start();
 }

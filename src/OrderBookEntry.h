@@ -7,8 +7,6 @@ enum class OrderBookType{bid, ask, unknown, asksale, bidsale};
 class OrderBookEntry
 {
     public:
-    
-
         OrderBookEntry( double _price, 
                         double _amount, 
                         std::string _timestamp, 

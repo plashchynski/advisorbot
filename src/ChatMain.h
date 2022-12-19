@@ -5,14 +5,15 @@
 #include "OrderBook.h"
 
 
-class ApplicationMain
+class ChatMain
 {
     public:
-        ApplicationMain();
-        /** Call this to start the sim */
-        void init();
+        ChatMain();
+        void start();
     private: 
-        void printHelp();
+        void help();
+        void help(std::vector<std::string> args);
+
         void printMarketStats();
         void gotoNextTimeframe();
         std::string readUserInput();

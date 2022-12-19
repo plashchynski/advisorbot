@@ -9,14 +9,13 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Add definition for libraries
 add_library(CSVReader src/CSVReader.cpp)
-add_library(ApplicationMain src/ApplicationMain.cpp)
+add_library(ChatMain src/ChatMain.cpp)
 add_library(OrderBook src/OrderBook.cpp)
 add_library(OrderBookEntry src/OrderBookEntry.cpp)
-add_library(Commands-Help src/commands/Help.cpp)
 
 # Definition for the advisorbot binary
 add_executable(advisorbot src/main.cpp)
-target_link_libraries(advisorbot CSVReader ApplicationMain OrderBook OrderBookEntry Commands-Help)
+target_link_libraries(advisorbot CSVReader ChatMain OrderBook OrderBookEntry)
 
 # Copy CSV data file to build directory
 configure_file(data/20200601.csv 20200601.csv COPYONLY)
