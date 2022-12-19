@@ -6,10 +6,10 @@
 #include "Wallet.h"
 
 
-class MerkelMain
+class ApplicationMain
 {
     public:
-        MerkelMain();
+        ApplicationMain();
         /** Call this to start the sim */
         void init();
     private: 

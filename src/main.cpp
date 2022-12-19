@@ -1,10 +1,7 @@
-#include "Wallet.h"
-#include <iostream>
-#include "MerkelMain.h"
+#include "ApplicationMain.h"
 
 int main()
 {   
-    MerkelMain app{};
+    ApplicationMain app{};
     app.init();
-    
 }

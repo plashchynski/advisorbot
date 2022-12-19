@@ -1,16 +1,16 @@
-#include "MerkelMain.h"
+#include "ApplicationMain.h"
 #include <iostream>
 #include <vector>
 #include "OrderBookEntry.h"
 #include "CSVReader.h"
 #include "commands/help.h"
 
-MerkelMain::MerkelMain()
+ApplicationMain::ApplicationMain()
 {
 
 }
 
-void MerkelMain::init()
+void ApplicationMain::init()
 {
     std::string input;
     currentTime = orderBook.getEarliestTime();
@@ -26,13 +26,13 @@ void MerkelMain::init()
     }
 }
 
-void MerkelMain::printHelp()
+void ApplicationMain::printHelp()
 {
     Commands::Help help;
     help.execute(std::vector<std::string>());
 }
 
-void MerkelMain::printMarketStats()
+void ApplicationMain::printMarketStats()
 {
     for (std::string const& p : orderBook.getKnownProducts())
     {
@@ -61,7 +61,7 @@ void MerkelMain::printMarketStats()
 
 }
 
-void MerkelMain::enterAsk()
+void ApplicationMain::enterAsk()
 {
     std::cout << "Make an ask - enter the amount: product,price, amount, eg  ETH/BTC,200,0.5" << std::endl;
     std::string input;
@@ -70,7 +70,7 @@ void MerkelMain::enterAsk()
     std::vector<std::string> tokens = CSVReader::tokenise(input, ',');
     if (tokens.size() != 3)
     {
-        std::cout << "MerkelMain::enterAsk Bad input! " << input << std::endl;
+        std::cout << "ApplicationMain::enterAsk Bad input! " << input << std::endl;
     }
     else {
         try {
@@ -92,12 +92,12 @@ void MerkelMain::enterAsk()
             }
         }catch (const std::exception& e)
         {
-            std::cout << " MerkelMain::enterAsk Bad input " << std::endl;
+            std::cout << " ApplicationMain::enterAsk Bad input " << std::endl;
         }   
     }
 }
 
-void MerkelMain::enterBid()
+void ApplicationMain::enterBid()
 {
     std::cout << "Make an bid - enter the amount: product,price, amount, eg  ETH/BTC,200,0.5" << std::endl;
     std::string input;
@@ -106,7 +106,7 @@ void MerkelMain::enterBid()
     std::vector<std::string> tokens = CSVReader::tokenise(input, ',');
     if (tokens.size() != 3)
     {
-        std::cout << "MerkelMain::enterBid Bad input! " << input << std::endl;
+        std::cout << "ApplicationMain::enterBid Bad input! " << input << std::endl;
     }
     else {
         try {
@@ -129,17 +129,17 @@ void MerkelMain::enterBid()
             }
         }catch (const std::exception& e)
         {
-            std::cout << " MerkelMain::enterBid Bad input " << std::endl;
+            std::cout << " ApplicationMain::enterBid Bad input " << std::endl;
         }   
     }
 }
 
-void MerkelMain::printWallet()
+void ApplicationMain::printWallet()
 {
     std::cout << wallet.toString() << std::endl;
 }
         
-void MerkelMain::gotoNextTimeframe()
+void ApplicationMain::gotoNextTimeframe()
 {
     std::cout << "Going to next time frame. " << std::endl;
     for (std::string p : orderBook.getKnownProducts())
@@ -162,7 +162,7 @@ void MerkelMain::gotoNextTimeframe()
     currentTime = orderBook.getNextTime(currentTime);
 }
  
-std::string MerkelMain::readUserInput()
+std::string ApplicationMain::readUserInput()
 {
     std::string line;
     std::cout << "user> ";
@@ -171,7 +171,7 @@ std::string MerkelMain::readUserInput()
     return line;
 }
 
-void MerkelMain::processUserInput(std::string userInput)
+void ApplicationMain::processUserInput(std::string userInput)
 {
     std::vector<std::string> tokens = CSVReader::tokenise(userInput, ' ');
     std::string command = tokens[0];
