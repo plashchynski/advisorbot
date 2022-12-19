@@ -11,43 +11,23 @@ MerkelMain::MerkelMain()
 
 void MerkelMain::init()
 {
-    int input;
+    std::vector<std::string> command;
     currentTime = orderBook.getEarliestTime();
 
     wallet.insertCurrency("BTC", 10);
 
+    printHelp();
+
     while(true)
-    {
-        printMenu();
-        input = getUserOption();
-        processUserOption(input);
+    {    
+        command = getUserCommand();
+        processUserCommand(command);
     }
-}
-
-
-void MerkelMain::printMenu()
-{
-    // 1 print help
-    std::cout << "1: Print help " << std::endl;
-    // 2 print exchange stats
-    std::cout << "2: Print exchange stats" << std::endl;
-    // 3 make an offer
-    std::cout << "3: Make an offer " << std::endl;
-    // 4 make a bid 
-    std::cout << "4: Make a bid " << std::endl;
-    // 5 print wallet
-    std::cout << "5: Print wallet " << std::endl;
-    // 6 continue   
-    std::cout << "6: Continue " << std::endl;
-
-    std::cout << "============== " << std::endl;
-
-    std::cout << "Current time is: " << currentTime << std::endl;
 }
 
 void MerkelMain::printHelp()
 {
-    std::cout << "Help - your aim is to make money. Analyse the market and make bids and offers. " << std::endl;
+    std::cout << "advisorbot> The available commands are help, prod, min, max, avg, predict, time, step. Use help <cmd> for the specified command's usage." << std::endl;
 }
 
 void MerkelMain::printMarketStats()
@@ -183,50 +163,46 @@ void MerkelMain::gotoNextTimeframe()
     currentTime = orderBook.getNextTime(currentTime);
 }
  
-int MerkelMain::getUserOption()
+std::vector<std::string> MerkelMain::getUserCommand()
 {
     int userOption = 0;
     std::string line;
-    std::cout << "Type in 1-6" << std::endl;
+    std::cout << "user> ";
     std::getline(std::cin, line);
-    try{
-        userOption = std::stoi(line);
-    }catch(const std::exception& e)
-    {
-        // 
-    }
-    std::cout << "You chose: " << userOption << std::endl;
-    return userOption;
+    std::vector<std::string> tokens = CSVReader::tokenise(line, ' ');
+    return tokens;
 }
 
-void MerkelMain::processUserOption(int userOption)
+void MerkelMain::processUserCommand(std::vector<std::string> userCommand)
 {
-    if (userOption == 0) // bad input
-    {
-        std::cout << "Invalid choice. Choose 1-6" << std::endl;
-    }
-    if (userOption == 1) 
+    std::string command = userCommand[0];
+
+    // if (userOption == 0) // bad input
+    // {
+    //     std::cout << "Invalid choice. Choose 1-6" << std::endl;
+    // }
+    if (command == "help")
     {
         printHelp();
     }
-    if (userOption == 2) 
-    {
-        printMarketStats();
-    }
-    if (userOption == 3) 
-    {
-        enterAsk();
-    }
-    if (userOption == 4) 
-    {
-        enterBid();
-    }
-    if (userOption == 5) 
-    {
-        printWallet();
-    }
-    if (userOption == 6) 
-    {
-        gotoNextTimeframe();
-    }       
+    // if (userOption == 2) 
+    // {
+    //     printMarketStats();
+    // }
+    // if (userOption == 3) 
+    // {
+    //     enterAsk();
+    // }
+    // if (userOption == 4) 
+    // {
+    //     enterBid();
+    // }
+    // if (userOption == 5) 
+    // {
+    //     printWallet();
+    // }
+    // if (userOption == 6) 
+    // {
+    //     gotoNextTimeframe();
+    // }       
 }

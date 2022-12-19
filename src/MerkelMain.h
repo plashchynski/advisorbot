@@ -13,15 +13,14 @@ class MerkelMain
         /** Call this to start the sim */
         void init();
     private: 
-        void printMenu();
         void printHelp();
         void printMarketStats();
         void enterAsk();
         void enterBid();
         void printWallet();
         void gotoNextTimeframe();
-        int getUserOption();
-        void processUserOption(int userOption);
+        std::vector<std::string> getUserCommand();
+        void processUserCommand(std::vector<std::string> userCommand);
 
         std::string currentTime;
 
