@@ -186,6 +186,12 @@ void ApplicationMain::processUserInput(std::string userInput)
         Commands::Help help{};
         help.execute(args);
     }
+
+    if (command == "exit")
+    {
+        exit(0);
+    }
+
     // if (userOption == 2) 
     // {
     //     printMarketStats();
