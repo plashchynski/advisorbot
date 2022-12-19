@@ -3,7 +3,6 @@
 #include <vector>
 #include "OrderBookEntry.h"
 #include "OrderBook.h"
-#include "Wallet.h"
 
 
 class ApplicationMain
@@ -15,17 +14,14 @@ class ApplicationMain
     private: 
         void printHelp();
         void printMarketStats();
-        void enterAsk();
-        void enterBid();
-        void printWallet();
         void gotoNextTimeframe();
         std::string readUserInput();
         void processUserInput(std::string input);
 
+        /** join a vector of strings using a delimiter */
+        std::string join(std::vector<std::string> const &strings, std::string delim);
+
         std::string currentTime;
 
-//        OrderBook orderBook{"20200317.csv"};
-	OrderBook orderBook{"20200601.csv"};
-        Wallet wallet;
-
+	    OrderBook orderBook{"20200601.csv"};
 };

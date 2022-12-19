@@ -12,12 +12,11 @@ add_library(CSVReader src/CSVReader.cpp)
 add_library(ApplicationMain src/ApplicationMain.cpp)
 add_library(OrderBook src/OrderBook.cpp)
 add_library(OrderBookEntry src/OrderBookEntry.cpp)
-add_library(Wallet src/Wallet.cpp)
 add_library(Commands-Help src/commands/Help.cpp)
 
 # Definition for the advisorbot binary
 add_executable(advisorbot src/main.cpp)
-target_link_libraries(advisorbot CSVReader ApplicationMain OrderBook OrderBookEntry Wallet Commands-Help)
+target_link_libraries(advisorbot CSVReader ApplicationMain OrderBook OrderBookEntry Commands-Help)
 
 # Copy CSV data file to build directory
 configure_file(data/20200601.csv 20200601.csv COPYONLY)
