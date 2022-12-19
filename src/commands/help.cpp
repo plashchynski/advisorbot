@@ -12,7 +12,8 @@ Help::Help()
 
 void Help::execute()
 {
-    std::cout << "advisorbot> The available commands are help, prod, min, max, avg, predict, time, step, exit. Use help <cmd> for the specified command's usage." << std::endl;
+    std::cout << "advisorbot> The available commands are: help, prod, min, max, avg, predict, time, step, exit." << std::endl;
+    std::cout << "advisorbot> Use help <cmd> for the specified command's usage." << std::endl;
 }
 
 void Help::execute(std::vector<std::string> args)
