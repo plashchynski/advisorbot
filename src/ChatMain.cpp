@@ -106,12 +106,8 @@ void ChatMain::processUserInput(std::string userInput)
 
         std::string product = args[0];
         std::string orderBookTypeString = args[1];
-        OrderBookType orderBookType;
-        if (orderBookTypeString == "ask")
-            orderBookType = OrderBookType::ask;
-        else if (orderBookTypeString == "bid")
-            orderBookType = OrderBookType::bid;
-        else
+        OrderBookType orderBookType = OrderBookEntry::stringToOrderBookType(orderBookTypeString);
+        if (orderBookType == OrderBookType::unknown)
         {
             std::cout << "advisorbot> Invalid order book type: " << orderBookTypeString << std::endl;
             return;
@@ -131,12 +127,8 @@ void ChatMain::processUserInput(std::string userInput)
 
         std::string product = args[0];
         std::string orderBookTypeString = args[1];
-        OrderBookType orderBookType;
-        if (orderBookTypeString == "ask")
-            orderBookType = OrderBookType::ask;
-        else if (orderBookTypeString == "bid")
-            orderBookType = OrderBookType::bid;
-        else
+        OrderBookType orderBookType = OrderBookEntry::stringToOrderBookType(orderBookTypeString);
+        if (orderBookType == OrderBookType::unknown)
         {
             std::cout << "advisorbot> Invalid order book type: " << orderBookTypeString << std::endl;
             return;
