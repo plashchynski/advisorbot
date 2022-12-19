@@ -46,17 +46,17 @@ void ChatMain::help(std::vector<std::string> args)
     else if (command == "prod")
         std::cout << "advisorbot> prod: Prints the products that are currently being traded." << std::endl;
     else if (command == "min")
-        std::cout << "advisorbot> min <product>: Prints the minimum price of the specified product." << std::endl;
+        std::cout << "advisorbot> min <product> <ask|bid>: Find minimum bid or ask for product in current time step." << std::endl;
     else if (command == "max")
-        std::cout << "advisorbot> max <product>: Prints the maximum price of the specified product." << std::endl;
+        std::cout << "advisorbot> max <product> <ask|bid>: Find maximum bid or ask for product in current time step." << std::endl;
     else if (command == "avg")
-        std::cout << "advisorbot> avg <product>: Prints the average price of the specified product." << std::endl;
+        std::cout << "advisorbot> avg <product> <ask|bid> <timesteps>: Compute average ask or bid for the sent product over the sent number of time steps." << std::endl;
     else if (command == "predict")
         std::cout << "advisorbot> predict <product>: Prints the predicted price of the specified product." << std::endl;
     else if (command == "time")
         std::cout << "advisorbot> time: Prints the current time." << std::endl;
     else if (command == "step")
-        std::cout << "advisorbot> step: Steps the simulation forward by one time unit." << std::endl;
+        std::cout << "advisorbot> step: Move to the next time step." << std::endl;
     else if (command == "exit")
         std::cout << "advisorbot> exit: Exit from the chat." << std::endl;
     else
@@ -79,7 +79,7 @@ void ChatMain::printMarketStats()
 void ChatMain::gotoNextTimeframe()
 {
     std::cout << "Going to next time frame. " << std::endl;
-    currentTime = orderBook.getNextTime(currentTime);
+    
 }
  
 std::string ChatMain::readUserInput()
@@ -163,6 +163,56 @@ void ChatMain::processUserInput(std::string userInput)
 
         std::vector<OrderBookEntry> entries = orderBook.getOrders(orderBookType, product, currentTime);
         std::cout << "advisorbot> The max " << orderBookTypeString << " for " << product << " is " << OrderBook::getHighPrice(entries) << std::endl;
+    }
+
+    if (command == "avg")
+    {
+        if (args.size() != 3)
+        {
+            std::cout << "advisorbot> Invalid number of arguments for avg." << std::endl;
+            return;
+        }
+
+        std::string product = args[0];
+        std::string orderBookTypeString = args[1];
+        std::string timestepsString = args[2];
+        int timesteps;
+
+        try
+        {
+            timesteps = std::stoi(timestepsString);
+        }
+        catch (std::invalid_argument const &e)
+        {
+            std::cout << "advisorbot> Invalid number of timesteps: " << timestepsString << std::endl;
+            return;
+        }
+
+        OrderBookType orderBookType;
+        if (orderBookTypeString == "ask")
+            orderBookType = OrderBookType::ask;
+        else if (orderBookTypeString == "bid")
+            orderBookType = OrderBookType::bid;
+        else
+        {
+            std::cout << "advisorbot> Invalid order book type: " << orderBookTypeString << std::endl;
+            return;
+        }
+
+        std::vector<OrderBookEntry> entries = orderBook.getOrders(orderBookType, product, currentTime);
+        double average = OrderBook::getAveragePrice(entries);
+        std::cout << "advisorbot> The average " << product << " " << orderBookTypeString << " price over the last " << timesteps << " was " << average << std::endl;
+    }
+
+    if (command == "step")
+    {
+        currentTime = orderBook.getNextTime(currentTime);
+        std::cout << "advisorbot> now at " << currentTime << std::endl;
+    }
+
+    if (command == "time")
+    {
+        std::cout << "advisorbot> " << currentTime << std::endl;
     }
 }
 
