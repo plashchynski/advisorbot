@@ -19,8 +19,8 @@ class MerkelMain
         void enterBid();
         void printWallet();
         void gotoNextTimeframe();
-        std::vector<std::string> getUserCommand();
-        void processUserCommand(std::vector<std::string> userCommand);
+        std::string readUserInput();
+        void processUserInput(std::string input);
 
         std::string currentTime;
 

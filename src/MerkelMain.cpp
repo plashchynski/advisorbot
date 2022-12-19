@@ -3,6 +3,7 @@
 #include <vector>
 #include "OrderBookEntry.h"
 #include "CSVReader.h"
+#include "commands/help.h"
 
 MerkelMain::MerkelMain()
 {
@@ -11,7 +12,7 @@ MerkelMain::MerkelMain()
 
 void MerkelMain::init()
 {
-    std::vector<std::string> command;
+    std::string input;
     currentTime = orderBook.getEarliestTime();
 
     wallet.insertCurrency("BTC", 10);
@@ -19,15 +20,16 @@ void MerkelMain::init()
     printHelp();
 
     while(true)
-    {    
-        command = getUserCommand();
-        processUserCommand(command);
+    {
+        input = readUserInput();
+        processUserInput(input);
     }
 }
 
 void MerkelMain::printHelp()
 {
-    std::cout << "advisorbot> The available commands are help, prod, min, max, avg, predict, time, step. Use help <cmd> for the specified command's usage." << std::endl;
+    Commands::Help help;
+    help.execute(std::vector<std::string>());
 }
 
 void MerkelMain::printMarketStats()
@@ -40,9 +42,6 @@ void MerkelMain::printMarketStats()
         std::cout << "Asks seen: " << entries.size() << std::endl;
         std::cout << "Max ask: " << OrderBook::getHighPrice(entries) << std::endl;
         std::cout << "Min ask: " << OrderBook::getLowPrice(entries) << std::endl;
-
-
-
     }
     // std::cout << "OrderBook contains :  " << orders.size() << " entries" << std::endl;
     // unsigned int bids = 0;
@@ -163,19 +162,20 @@ void MerkelMain::gotoNextTimeframe()
     currentTime = orderBook.getNextTime(currentTime);
 }
  
-std::vector<std::string> MerkelMain::getUserCommand()
+std::string MerkelMain::readUserInput()
 {
-    int userOption = 0;
     std::string line;
     std::cout << "user> ";
     std::getline(std::cin, line);
-    std::vector<std::string> tokens = CSVReader::tokenise(line, ' ');
-    return tokens;
+
+    return line;
 }
 
-void MerkelMain::processUserCommand(std::vector<std::string> userCommand)
+void MerkelMain::processUserInput(std::string userInput)
 {
-    std::string command = userCommand[0];
+    std::vector<std::string> tokens = CSVReader::tokenise(userInput, ' ');
+    std::string command = tokens[0];
+    std::vector<std::string> args = std::vector<std::string>(tokens.begin() + 1, tokens.end());
 
     // if (userOption == 0) // bad input
     // {
@@ -183,7 +183,8 @@ void MerkelMain::processUserCommand(std::vector<std::string> userCommand)
     // }
     if (command == "help")
     {
-        printHelp();
+        Commands::Help help{};
+        help.execute(args);
     }
     // if (userOption == 2) 
     // {

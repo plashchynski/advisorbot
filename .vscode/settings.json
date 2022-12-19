@@ -105,6 +105,10 @@
         "__memory": "cpp",
         "filesystem": "cpp",
         "stack": "cpp",
-        "__tree": "cpp"
+        "__tree": "cpp",
+        "__bits": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "variant": "cpp"
     }
 }
