@@ -14,8 +14,6 @@ class ChatMain
         void help();
         void help(std::vector<std::string> args);
 
-        void printMarketStats();
-        void gotoNextTimeframe();
         std::string readUserInput();
         void processUserInput(std::string input);
 
@@ -23,6 +21,5 @@ class ChatMain
         std::string join(std::vector<std::string> const &strings, std::string delim);
 
         std::string currentTime;
-
 	    OrderBook orderBook{"20200601.csv"};
 };

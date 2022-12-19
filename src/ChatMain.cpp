@@ -63,25 +63,6 @@ void ChatMain::help(std::vector<std::string> args)
         std::cout << "advisorbot> Unknown command: " << command << std::endl;
 }
 
-void ChatMain::printMarketStats()
-{
-    for (std::string const& p : orderBook.getKnownProducts())
-    {
-        std::cout << "Product: " << p << std::endl;
-        std::vector<OrderBookEntry> entries = orderBook.getOrders(OrderBookType::ask, 
-                                                                p, currentTime);
-        std::cout << "Asks seen: " << entries.size() << std::endl;
-        std::cout << "Max ask: " << OrderBook::getHighPrice(entries) << std::endl;
-        std::cout << "Min ask: " << OrderBook::getLowPrice(entries) << std::endl;
-    }
-}
-        
-void ChatMain::gotoNextTimeframe()
-{
-    std::cout << "Going to next time frame. " << std::endl;
-    
-}
- 
 std::string ChatMain::readUserInput()
 {
     std::string line;
