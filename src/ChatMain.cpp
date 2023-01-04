@@ -46,11 +46,20 @@ void ChatMain::help(std::vector<std::string> args)
     else if (command == "prod")
         std::cout << "advisorbot> prod: Prints the products that are currently being traded." << std::endl;
     else if (command == "min")
+    {
         std::cout << "advisorbot> min <product> <ask|bid>: Find minimum bid or ask for product in current time step." << std::endl;
+        std::cout << "advisorbot> min ETH/BTC ask -> The min ask for ETH/BTC is 1.0" << std::endl;
+    }
     else if (command == "max")
+    {
         std::cout << "advisorbot> max <product> <ask|bid>: Find maximum bid or ask for product in current time step." << std::endl;
+        std::cout << "advisorbot> max ETH/BTC ask -> The max ask for ETH/BTC is 1.0" << std::endl;
+    }
     else if (command == "avg")
+    {
         std::cout << "advisorbot> avg <product> <ask|bid> <timesteps>: Compute average ask or bid for the sent product over the sent number of time steps." << std::endl;
+        std::cout << "advisorbot> avg ETH/BTC bid 10 -> average ETH/BTC bid over last 10 time steps." << std::endl;
+    }
     else if (command == "predict")
         std::cout << "advisorbot> predict <product>: Prints the predicted price of the specified product." << std::endl;
     else if (command == "time")
