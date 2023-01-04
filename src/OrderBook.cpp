@@ -2,6 +2,7 @@
 #include "CSVReader.h"
 #include <map>
 #include <algorithm>
+#include <vector>
 #include <iostream>
 
 
@@ -31,6 +32,7 @@ std::vector<std::string> OrderBook::getKnownProducts()
 
     return products;
 }
+
 /** return vector of Orders according to the sent filters*/
 std::vector<OrderBookEntry> OrderBook::getOrders(OrderBookType type, 
                                         std::string product, 
@@ -105,4 +107,38 @@ std::string OrderBook::getNextTime(std::string timestamp)
     }
 
     return next_timestamp;
+}
+
+/**
+ * Return the timestamps from the orderbook that goes before the specified timestamp
+ * including the specified timestamp.
+ *
+ * @param tillTimestamp till which timestamp to return
+ * @param number number of timestamps to return
+ * @return A vector of found timestamps
+ */
+std::vector<std::string> OrderBook::getLastTimestamps(std::string tillTimestamp, int number)
+{
+    std::string prev_timestamp = "";
+    std::vector<std::string> timestamps;
+    std::vector<std::string> result;
+
+    for (OrderBookEntry& e : orders)
+    {
+        int size = timestamps.size();
+        if (size == 0 || timestamps[size - 1] != e.timestamp)
+        {
+            timestamps.push_back(e.timestamp);
+        }
+    }
+
+    auto itr = std::find(timestamps.begin(), timestamps.end(), tillTimestamp);
+    if (itr != timestamps.cend()) {
+        int tillIndex = std::distance(timestamps.begin(), itr) + 1;
+        int fromIndex = std::max(0, tillIndex - number);
+
+        result = std::vector<std::string>(timestamps.begin() + fromIndex, timestamps.begin() + tillIndex);
+    }
+
+    return result;
 }
