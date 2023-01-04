@@ -121,7 +121,7 @@ void ChatMain::processUserInput(std::string userInput)
             std::cout << "advisorbot> Invalid order book type: " << orderBookTypeString << std::endl;
             return;
         }
-        
+
         std::vector<OrderBookEntry> entries = orderBook.getOrders(orderBookType, product, currentTime);
         std::cout << "advisorbot> The min " << orderBookTypeString << " for " << product << " is " << OrderBook::getLowPrice(entries) << std::endl;
     }
@@ -159,12 +159,17 @@ void ChatMain::processUserInput(std::string userInput)
         std::string orderBookTypeString = args[1];
         std::string timestepsString = args[2];
         int timesteps;
-
         try
         {
             timesteps = std::stoi(timestepsString);
         }
         catch (std::invalid_argument const &e)
+        {
+            std::cout << "advisorbot> Invalid number of timesteps: " << timestepsString << std::endl;
+            return;
+        }
+
+        if (timesteps <= 0)
         {
             std::cout << "advisorbot> Invalid number of timesteps: " << timestepsString << std::endl;
             return;
@@ -181,7 +186,8 @@ void ChatMain::processUserInput(std::string userInput)
             return;
         }
 
-        std::vector<OrderBookEntry> entries = orderBook.getOrders(orderBookType, product, currentTime);
+        std::vector<std::string> timestamps = orderBook.getLastTimestamps(currentTime, timesteps);
+        std::vector<OrderBookEntry> entries = orderBook.getOrders(orderBookType, product, timestamps);
         double average = OrderBook::getAveragePrice(entries);
         std::cout << "advisorbot> The average " << product << " " << orderBookTypeString << " price over the last " << timesteps << " was " << average << std::endl;
     }
@@ -203,7 +209,7 @@ std::string ChatMain::join(std::vector<std::string> const &strings, std::string 
     if (strings.empty()) {
         return std::string();
     }
- 
+
     return std::accumulate(strings.begin() + 1, strings.end(), strings[0],
         [&delim](std::string x, std::string y) {
             return x + delim + y;

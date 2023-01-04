@@ -14,15 +14,18 @@ class OrderBook
         std::vector<std::string> getKnownProducts();
 
         /** return vector of Orders according to the sent filters*/
-        std::vector<OrderBookEntry> getOrders(OrderBookType type, 
-                                              std::string product, 
+        std::vector<OrderBookEntry> getOrders(OrderBookType type,
+                                              std::string product,
                                               std::string timestamp);
+        std::vector<OrderBookEntry> getOrders(OrderBookType type,
+                                              std::string product,
+                                              std::vector<std::string> timestamps);
 
         /** returns the earliest time in the orderbook*/
         std::string getEarliestTime();
 
-        /** returns the next time after the 
-         * sent time in the orderbook  
+        /** returns the next time after the
+         * sent time in the orderbook
          * If there is no next timestamp, wraps around to the start
          * */
         std::string getNextTime(std::string timestamp);

@@ -23,7 +23,7 @@ std::vector<std::string> OrderBook::getKnownProducts()
     {
         prodMap[e.product] = true;
     }
-    
+
     // now flatten the map to a vector of strings
     for (auto const& e : prodMap)
     {
@@ -34,16 +34,24 @@ std::vector<std::string> OrderBook::getKnownProducts()
 }
 
 /** return vector of Orders according to the sent filters*/
-std::vector<OrderBookEntry> OrderBook::getOrders(OrderBookType type, 
-                                        std::string product, 
+std::vector<OrderBookEntry> OrderBook::getOrders(OrderBookType type,
+                                        std::string product,
                                         std::string timestamp)
+{
+    return getOrders(type, product, {timestamp});
+}
+
+std::vector<OrderBookEntry> OrderBook::getOrders(OrderBookType type,
+                                        std::string product,
+                                        std::vector<std::string> timestamps)
 {
     std::vector<OrderBookEntry> orders_sub;
     for (OrderBookEntry& e : orders)
     {
-        if (e.orderType == type && 
-            e.product == product && 
-            e.timestamp == timestamp )
+        if (e.orderType == type &&
+                e.product == product &&
+                std::find(timestamps.begin(), timestamps.end(), e.timestamp) != timestamps.end()
+            )
             {
                 orders_sub.push_back(e);
             }
@@ -94,7 +102,7 @@ std::string OrderBook::getNextTime(std::string timestamp)
 
     for (OrderBookEntry& e : orders)
     {
-        if (e.timestamp > timestamp) 
+        if (e.timestamp > timestamp)
         {
             next_timestamp = e.timestamp;
             break;
