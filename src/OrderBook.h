@@ -8,7 +8,10 @@ class OrderBook
 {
     public:
         /** construct, reading a csv data file */
-        OrderBook(std::string filename);
+        OrderBook();
+
+        /** load a csv data file */
+        void loadBook(std::string filename);
 
         /** return vector of all know products in the dataset*/
         std::vector<std::string> getKnownProducts();

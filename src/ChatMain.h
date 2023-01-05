@@ -21,5 +21,5 @@ class ChatMain
         std::string join(std::vector<std::string> const &strings, std::string delim);
 
         std::string currentTime;
-	    OrderBook orderBook{"20200601.csv"};
+	    OrderBook orderBook;
 };

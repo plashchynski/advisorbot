@@ -12,6 +12,9 @@ ChatMain::ChatMain()
 
 void ChatMain::start()
 {
+    // load the orderbook
+    orderBook.loadBook("20200601.csv");
+
     std::string input;
     currentTime = orderBook.getEarliestTime();
 
@@ -97,6 +100,7 @@ void ChatMain::processUserInput(std::string userInput)
 
     if (command == "exit")
     {
+        std::cout << "advisorbot> Bye!" << std::endl;
         exit(0);
     }
 

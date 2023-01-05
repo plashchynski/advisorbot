@@ -8,8 +8,13 @@
 #include "CSVReader.h"
 #include "LinearRegression.h"
 
-/** construct, reading a csv data file */
-OrderBook::OrderBook(std::string filename)
+OrderBook::OrderBook()
+{
+    
+}
+
+/** read a csv data file */
+void OrderBook::loadBook(std::string filename)
 {
     orders = CSVReader::readCSV(filename);
 }
