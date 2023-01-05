@@ -14,9 +14,14 @@ add_library(OrderBook src/OrderBook.cpp)
 add_library(OrderBookEntry src/OrderBookEntry.cpp)
 add_library(LinearRegression src/LinearRegression.cpp)
 
+# Add definition for Boost
+find_package(Boost 1.80 REQUIRED COMPONENTS ALL)
+include_directories(${Boost_INCLUDE_DIRS})
+
 # Definition for the advisorbot binary
 add_executable(advisorbot src/main.cpp)
-target_link_libraries(advisorbot CSVReader ChatMain OrderBook OrderBookEntry LinearRegression)
+target_link_libraries(advisorbot CSVReader ChatMain OrderBook OrderBookEntry LinearRegression Boost::iostreams)
+
 
 # Copy CSV data file to build directory
 configure_file(data/20200601.csv 20200601.csv COPYONLY)

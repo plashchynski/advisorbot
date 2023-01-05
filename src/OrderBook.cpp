@@ -10,7 +10,7 @@
 
 OrderBook::OrderBook()
 {
-    
+
 }
 
 /** read a csv data file */

@@ -2,6 +2,9 @@
 #include <iostream>
 #include <vector>
 #include <numeric>
+
+#include <boost/algorithm/string.hpp>
+
 #include "OrderBookEntry.h"
 #include "CSVReader.h"
 
@@ -103,7 +106,9 @@ std::string ChatMain::readUserInput()
 
 void ChatMain::processUserInput(std::string userInput)
 {
-    std::vector<std::string> tokens = CSVReader::tokenise(userInput, ' ');
+    std::vector<std::string> tokens;
+
+    boost::split(tokens, userInput, [](char c){return c == ' ';});
 
     // empty user input
     if (tokens.size() == 0)
@@ -124,10 +129,8 @@ void ChatMain::processUserInput(std::string userInput)
 
     if (command == "prod")
     {
-        std::string delim = ",";
         std::vector<std::string> products = orderBook.getKnownProducts();
-
-        std::cout << "advisorbot> " << join(products, delim) << std::endl;
+        std::cout << "advisorbot> " << boost::join(products, ",") << std::endl;
     }
 
     if (command == "min")
@@ -256,17 +259,4 @@ void ChatMain::processUserInput(std::string userInput)
     {
         std::cout << "advisorbot> " << currentTime << std::endl;
     }
-}
-
-std::string ChatMain::join(std::vector<std::string> const &strings, std::string delim)
-{
-    if (strings.empty()) {
-        return std::string();
-    }
-
-    return std::accumulate(strings.begin() + 1, strings.end(), strings[0],
-        [&delim](std::string x, std::string y) {
-            return x + delim + y;
-        }
-    );
 }

@@ -9,10 +9,15 @@ Install [CMake](https://cmake.org/) on Mac OS X:
 brew install cmake
 ```
 
+Install [Boost C++ Libraries](https://www.boost.org/) on Mac OS X:
+```bash
+brew install boost
+```
+
 On Ubuntu:
 
 ```bash
-sudo apt-get install cmake
+sudo apt-get install cmake libboost-all-dev
 ```
 
 Run the following commands to build the project:
