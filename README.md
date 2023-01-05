@@ -26,7 +26,7 @@ Run the following commands to build the project:
 mkdir -p build
 cd build/
 cmake ..
-cmake --build . --target advisorbot
+cmake --build .
 ```
 
 Run the executable:
@@ -34,3 +34,10 @@ Run the executable:
 ```bash
 ./advisorbot
 ```
+
+Run the tests:
+```bash
+cd test/
+./advisorbot_unit_tests --log_level=all
+```
+
