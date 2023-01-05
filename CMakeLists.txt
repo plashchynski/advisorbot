@@ -12,10 +12,11 @@ add_library(CSVReader src/CSVReader.cpp)
 add_library(ChatMain src/ChatMain.cpp)
 add_library(OrderBook src/OrderBook.cpp)
 add_library(OrderBookEntry src/OrderBookEntry.cpp)
+add_library(LinearRegression src/LinearRegression.cpp)
 
 # Definition for the advisorbot binary
 add_executable(advisorbot src/main.cpp)
-target_link_libraries(advisorbot CSVReader ChatMain OrderBook OrderBookEntry)
+target_link_libraries(advisorbot CSVReader ChatMain OrderBook OrderBookEntry LinearRegression)
 
 # Copy CSV data file to build directory
 configure_file(data/20200601.csv 20200601.csv COPYONLY)
