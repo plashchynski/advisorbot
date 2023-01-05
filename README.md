@@ -4,12 +4,15 @@ Midterm project for the course "Object Oriented Programming" at the University o
 
 ## Build
 
-Install [CMake](https://cmake.org/) on Mac OS X:
+1. ```20200601.csv``` should be placed into ```data/``` folder.
+
+
+2. Install [CMake](https://cmake.org/) on Mac OS X:
 ```bash
 brew install cmake
 ```
 
-Install [Boost C++ Libraries](https://www.boost.org/) on Mac OS X:
+3. Install [Boost C++ Libraries](https://www.boost.org/) on Mac OS X:
 ```bash
 brew install boost
 ```
@@ -20,7 +23,7 @@ On Ubuntu:
 sudo apt-get install cmake libboost-all-dev
 ```
 
-Run the following commands to build the project:
+4. Run the following commands to build the project:
 
 ```bash
 mkdir -p build
@@ -29,15 +32,14 @@ cmake ..
 cmake --build .
 ```
 
-Run the executable:
-
-```bash
-./advisorbot
-```
-
-Run the tests:
+5. Run the tests:
 ```bash
 cd test/
 ./advisorbot_unit_tests --log_level=all
 ```
 
+6. Run the executable:
+
+```bash
+./advisorbot
+```
