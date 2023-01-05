@@ -10,8 +10,21 @@ class ChatMain
     public:
         ChatMain();
         void start();
-    private: 
+
+    private:
+        /**
+         * Terminate the program.
+        */
+        void terminate();
+
+        /**
+         * Print the usage information
+        */
         void help();
+
+        /**
+         * Print the usage information for a specific command
+        */
         void help(std::vector<std::string> args);
 
         std::string readUserInput();

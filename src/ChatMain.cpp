@@ -23,6 +23,14 @@ void ChatMain::start()
     while(true)
     {
         input = readUserInput();
+
+        // Ctrl+D pressed
+        if (std::cin.eof())
+        {
+            std::cout << "exit" << std::endl;
+            terminate();
+        }
+
         processUserInput(input);
     }
 }
@@ -50,22 +58,22 @@ void ChatMain::help(std::vector<std::string> args)
         std::cout << "advisorbot> prod: Prints the products that are currently being traded." << std::endl;
     else if (command == "min")
     {
-        std::cout << "advisorbot> min <product> <ask|bid>: Find minimum bid or ask for product in current time step." << std::endl;
+        std::cout << "advisorbot> min <product> {ask bid}: Find minimum bid or ask for product in current time step." << std::endl;
         std::cout << "advisorbot> min ETH/BTC ask -> The min ask for ETH/BTC is 1.0" << std::endl;
     }
     else if (command == "max")
     {
-        std::cout << "advisorbot> max <product> <ask|bid>: Find maximum bid or ask for product in current time step." << std::endl;
+        std::cout << "advisorbot> max <product> {ask bid}: Find maximum bid or ask for product in current time step." << std::endl;
         std::cout << "advisorbot> max ETH/BTC ask -> The max ask for ETH/BTC is 1.0" << std::endl;
     }
     else if (command == "avg")
     {
-        std::cout << "advisorbot> avg <product> <ask|bid> <timesteps>: Compute average ask or bid for the sent product over the sent number of time steps." << std::endl;
+        std::cout << "advisorbot> avg <product> {ask bid} <timesteps>: Compute average ask or bid price for the product over the specified number of time steps." << std::endl;
         std::cout << "advisorbot> avg ETH/BTC bid 10 -> average ETH/BTC bid over last 10 time steps." << std::endl;
     }
     else if (command == "predict")
     {
-        std::cout << "advisorbot> predict <max|min> <product> <ask|bid> : Predict max or min ask or bid for the sent product for the next time step." << std::endl;
+        std::cout << "advisorbot> predict {max min} <product> {ask bid} : Predict max or min ask or bid price for the specified product for the next time step." << std::endl;
         std::cout << "advisorbot> predict max ETH/BTC bid -> predicted max bid price for ETH/BTC for the next time step." << std::endl;
     }
     else if (command == "time")
@@ -76,6 +84,12 @@ void ChatMain::help(std::vector<std::string> args)
         std::cout << "advisorbot> exit: Exit from the chat." << std::endl;
     else
         std::cout << "advisorbot> Unknown command: " << command << std::endl;
+}
+
+void ChatMain::terminate()
+{
+    std::cout << "advisorbot> Bye!" << std::endl;
+    exit(0);
 }
 
 std::string ChatMain::readUserInput()
@@ -90,6 +104,11 @@ std::string ChatMain::readUserInput()
 void ChatMain::processUserInput(std::string userInput)
 {
     std::vector<std::string> tokens = CSVReader::tokenise(userInput, ' ');
+
+    // empty user input
+    if (tokens.size() == 0)
+        return;
+
     std::string command = tokens[0];
     std::vector<std::string> args = std::vector<std::string>(tokens.begin() + 1, tokens.end());
 
@@ -100,8 +119,7 @@ void ChatMain::processUserInput(std::string userInput)
 
     if (command == "exit")
     {
-        std::cout << "advisorbot> Bye!" << std::endl;
-        exit(0);
+        terminate();
     }
 
     if (command == "prod")
