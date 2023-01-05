@@ -19,11 +19,10 @@ void OrderBook::loadBook(std::string filename)
     orders = CSVReader::readCSV(filename);
 }
 
-/** return vector of all know products in the dataset*/
+/** return a vector of all know products in the dataset */
 std::vector<std::string> OrderBook::getKnownProducts()
 {
     std::vector<std::string> products;
-
     std::map<std::string,bool> prodMap;
 
     for (OrderBookEntry& e : orders)
@@ -40,41 +39,37 @@ std::vector<std::string> OrderBook::getKnownProducts()
     return products;
 }
 
-/** return vector of Orders according to the sent filters*/
+/** return a vector of Orders according to the sent filters */
 std::vector<OrderBookEntry> OrderBook::getOrders(OrderBookType type,
                                         std::string product,
                                         std::string timestamp)
 {
-    std::vector<OrderBookEntry> orders_sub;
+    std::vector<OrderBookEntry> results;
     for (OrderBookEntry& e : orders)
     {
-        if (e.orderType == type &&
-                e.product == product &&
-                e.timestamp == timestamp
-            )
-            {
-                orders_sub.push_back(e);
-            }
+        if (e.orderType == type && e.product == product && e.timestamp == timestamp)
+        {
+            results.push_back(e);
+        }
     }
-    return orders_sub;
+    return results;
 }
 
+/** return a vector of Orders for the list of timestamps */
 std::vector<OrderBookEntry> OrderBook::getOrders(OrderBookType type,
                                         std::string product,
                                         std::vector<std::string> timestamps)
 {
-    std::vector<OrderBookEntry> orders_sub;
+    std::vector<OrderBookEntry> results;
     for (OrderBookEntry& e : orders)
     {
-        if (e.orderType == type &&
-                e.product == product &&
-                std::find(timestamps.begin(), timestamps.end(), e.timestamp) != timestamps.end()
-            )
-            {
-                orders_sub.push_back(e);
-            }
+        if (e.orderType == type && e.product == product &&
+            std::find(timestamps.begin(), timestamps.end(), e.timestamp) != timestamps.end())
+        {
+            results.push_back(e);
+        }
     }
-    return orders_sub;
+    return results;
 }
 
 double OrderBook::getHighPrice(std::vector<OrderBookEntry>& orders)
@@ -82,7 +77,8 @@ double OrderBook::getHighPrice(std::vector<OrderBookEntry>& orders)
     double max = orders[0].price;
     for (OrderBookEntry& e : orders)
     {
-        if (e.price > max)max = e.price;
+        if (e.price > max)
+            max = e.price;
     }
     return max;
 }
@@ -92,7 +88,8 @@ double OrderBook::getLowPrice(std::vector<OrderBookEntry>& orders)
     double min = orders[0].price;
     for (OrderBookEntry& e : orders)
     {
-        if (e.price < min)min = e.price;
+        if (e.price < min)
+            min = e.price;
     }
     return min;
 }
@@ -100,10 +97,12 @@ double OrderBook::getLowPrice(std::vector<OrderBookEntry>& orders)
 double OrderBook::getAveragePrice(std::vector<OrderBookEntry>& orders)
 {
     double sum = 0;
+
     for (OrderBookEntry& e : orders)
     {
         sum += e.price;
     }
+
     return sum / orders.size();
 }
 
