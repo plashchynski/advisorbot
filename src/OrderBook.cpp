@@ -1,10 +1,12 @@
-#include "OrderBook.h"
-#include "CSVReader.h"
 #include <map>
 #include <algorithm>
 #include <vector>
 #include <iostream>
+#include <numeric>
 
+#include "OrderBook.h"
+#include "CSVReader.h"
+#include "LinearRegression.h"
 
 /** construct, reading a csv data file */
 OrderBook::OrderBook(std::string filename)
@@ -38,7 +40,18 @@ std::vector<OrderBookEntry> OrderBook::getOrders(OrderBookType type,
                                         std::string product,
                                         std::string timestamp)
 {
-    return getOrders(type, product, {timestamp});
+    std::vector<OrderBookEntry> orders_sub;
+    for (OrderBookEntry& e : orders)
+    {
+        if (e.orderType == type &&
+                e.product == product &&
+                e.timestamp == timestamp
+            )
+            {
+                orders_sub.push_back(e);
+            }
+    }
+    return orders_sub;
 }
 
 std::vector<OrderBookEntry> OrderBook::getOrders(OrderBookType type,
@@ -59,7 +72,6 @@ std::vector<OrderBookEntry> OrderBook::getOrders(OrderBookType type,
     return orders_sub;
 }
 
-
 double OrderBook::getHighPrice(std::vector<OrderBookEntry>& orders)
 {
     double max = orders[0].price;
@@ -69,7 +81,6 @@ double OrderBook::getHighPrice(std::vector<OrderBookEntry>& orders)
     }
     return max;
 }
-
 
 double OrderBook::getLowPrice(std::vector<OrderBookEntry>& orders)
 {
@@ -89,6 +100,32 @@ double OrderBook::getAveragePrice(std::vector<OrderBookEntry>& orders)
         sum += e.price;
     }
     return sum / orders.size();
+}
+
+double OrderBook::predict(std::string maxMin, std::string product, OrderBookType orderBookType, std::string currentTime)
+{
+    std::vector<double> prices;
+    std::vector<std::string> timestamps = getLastTimestamps(currentTime, 20);
+
+    for (std::string& timestamp : timestamps)
+    {
+        std::vector<OrderBookEntry> orders = getOrders(orderBookType, product, timestamp);
+
+        if (maxMin == "min") {
+            prices.push_back(getLowPrice(orders));
+        } else if (maxMin == "max") {
+            prices.push_back(getHighPrice(orders));
+        }
+    }
+
+    std::vector<double> x(prices.size());
+    std::iota(x.begin(), x.end(), 1);
+
+    LinearRegression lr;
+    lr.fit(x, prices);
+    double prediction = lr.predict(x.size() + 1);
+
+    return prediction;
 }
 
 std::string OrderBook::getEarliestTime()

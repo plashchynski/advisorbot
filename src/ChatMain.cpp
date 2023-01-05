@@ -61,7 +61,10 @@ void ChatMain::help(std::vector<std::string> args)
         std::cout << "advisorbot> avg ETH/BTC bid 10 -> average ETH/BTC bid over last 10 time steps." << std::endl;
     }
     else if (command == "predict")
-        std::cout << "advisorbot> predict <product>: Prints the predicted price of the specified product." << std::endl;
+    {
+        std::cout << "advisorbot> predict <max|min> <product> <ask|bid> : Predict max or min ask or bid for the sent product for the next time step." << std::endl;
+        std::cout << "advisorbot> predict max ETH/BTC bid -> predicted max bid price for ETH/BTC for the next time step." << std::endl;
+    }
     else if (command == "time")
         std::cout << "advisorbot> time: Prints the current time." << std::endl;
     else if (command == "step")
@@ -145,6 +148,35 @@ void ChatMain::processUserInput(std::string userInput)
 
         std::vector<OrderBookEntry> entries = orderBook.getOrders(orderBookType, product, currentTime);
         std::cout << "advisorbot> The max " << orderBookTypeString << " for " << product << " is " << OrderBook::getHighPrice(entries) << std::endl;
+    }
+
+    if (command == "predict")
+    {
+        if (args.size() != 3)
+        {
+            std::cout << "advisorbot> Invalid number of arguments for predict." << std::endl;
+            return;
+        }
+
+        std::string maxMin = args[0];
+        std::string product = args[1];
+        std::string orderBookTypeString = args[2];
+
+        if (maxMin != "min" && maxMin != "max")
+        {
+            std::cout << "advisorbot> Invalid max/min: " << maxMin << std::endl;
+            return;
+        }
+
+        OrderBookType orderBookType = OrderBookEntry::stringToOrderBookType(orderBookTypeString);
+        if (orderBookType == OrderBookType::unknown)
+        {
+            std::cout << "advisorbot> Invalid order book type: " << orderBookTypeString << std::endl;
+            return;
+        }
+
+        double prediction = orderBook.predict(maxMin, product, orderBookType, currentTime);
+        std::cout << "advisorbot> The predicted " + maxMin + " " + orderBookTypeString + " price for " << product << " is " << prediction << std::endl;
     }
 
     if (command == "avg")

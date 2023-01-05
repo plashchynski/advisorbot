@@ -30,6 +30,7 @@ class OrderBook
          * */
         std::string getNextTime(std::string timestamp);
         std::vector<std::string> getLastTimestamps(std::string tillTimestamp, int number);
+        double predict(std::string maxMin, std::string product, OrderBookType orderBookType, std::string currentTime);
 
         static double getHighPrice(std::vector<OrderBookEntry>& orders);
         static double getLowPrice(std::vector<OrderBookEntry>& orders);
