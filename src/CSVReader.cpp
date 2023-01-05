@@ -7,6 +7,15 @@ CSVReader::CSVReader()
 
 }
 
+/**
+ * This code is based on the original CSVReader::readCSV() function provided in the course.
+ * It has been modified to use std::move() to avoid copying.
+ *
+ * This function reads a CSV file and returns a vector of OrderBookEntry objects.
+ *
+ * @param csvFilename The name of the file to read
+ * @return A vector of OrderBookEntry objects
+*/
 std::vector<OrderBookEntry> CSVReader::readCSV(std::string csvFilename)
 {
     std::vector<OrderBookEntry> entries;
@@ -33,6 +42,14 @@ std::vector<OrderBookEntry> CSVReader::readCSV(std::string csvFilename)
     return entries;
 }
 
+/**
+ * This code is based on the original CSVReader::stringsToOBE() function provided in the course.
+ *
+ * This function converts a vector of strings into an OrderBookEntry object.
+ *
+ * @param tokens A vector of strings containing the data to be converted
+ * @return An OrderBookEntry object
+*/
 OrderBookEntry CSVReader::stringsToOBE(const std::vector<std::string>& tokens)
 {
     double price, amount;
@@ -63,6 +80,14 @@ OrderBookEntry CSVReader::stringsToOBE(const std::vector<std::string>& tokens)
     };
 }
 
+/**
+ * This code is based on the original CSVReader::tokenise() function provided in the course.
+ * It has been modified to use const references and to use std::move() to avoid copying.
+ *
+ * @param csvLine The line to be tokenised
+ * @param separator The character to use as a separator
+ * @return A vector of strings containing the tokens
+*/
 std::vector<std::string> CSVReader::tokenise(const std::string &csvLine, char separator)
 {
     std::vector<std::string> tokens;
