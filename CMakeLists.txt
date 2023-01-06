@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.10)
 
 set(PROJECT_NAME_STR advisorbot)
-set(PROJECT_MODULES CSVReader AppMain OrderBook OrderBookEntry LinearRegression)
+set(PROJECT_MODULES CSVReader AppMain OrderBook OrderBookEntry LinearRegression CommandProcessor)
 
 # Define the project
 project(${PROJECT_NAME_STR})
@@ -16,6 +16,7 @@ add_library(AppMain src/AppMain.cpp)
 add_library(OrderBook src/OrderBook.cpp)
 add_library(OrderBookEntry src/OrderBookEntry.cpp)
 add_library(LinearRegression src/LinearRegression.cpp)
+add_library(CommandProcessor src/CommandProcessor.cpp)
 
 # Add definition for Boost
 find_package(Boost 1.80 REQUIRED COMPONENTS iostreams unit_test_framework)
