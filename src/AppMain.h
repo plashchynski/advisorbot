@@ -5,10 +5,10 @@
 #include "OrderBook.h"
 
 
-class ChatMain
+class AppMain
 {
     public:
-        ChatMain();
+        AppMain();
         void start();
 
     private:

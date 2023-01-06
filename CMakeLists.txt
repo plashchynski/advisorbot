@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.10)
 
 set(PROJECT_NAME_STR advisorbot)
-set(PROJECT_MODULES CSVReader ChatMain OrderBook OrderBookEntry LinearRegression)
+set(PROJECT_MODULES CSVReader AppMain OrderBook OrderBookEntry LinearRegression)
 
 # Define the project
 project(${PROJECT_NAME_STR})
@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Add definition for libraries
 add_library(CSVReader src/CSVReader.cpp)
-add_library(ChatMain src/ChatMain.cpp)
+add_library(AppMain src/AppMain.cpp)
 add_library(OrderBook src/OrderBook.cpp)
 add_library(OrderBookEntry src/OrderBookEntry.cpp)
 add_library(LinearRegression src/LinearRegression.cpp)

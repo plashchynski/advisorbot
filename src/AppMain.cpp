@@ -1,4 +1,4 @@
-#include "ChatMain.h"
+#include "AppMain.h"
 #include <iostream>
 #include <vector>
 #include <numeric>
@@ -8,12 +8,12 @@
 #include "OrderBookEntry.h"
 #include "CSVReader.h"
 
-ChatMain::ChatMain()
+AppMain::AppMain()
 {
 
 }
 
-void ChatMain::start()
+void AppMain::start()
 {
     // load the orderbook
     orderBook.loadBook("20200601.csv");
@@ -38,13 +38,13 @@ void ChatMain::start()
     }
 }
 
-void ChatMain::help()
+void AppMain::help()
 {
     std::cout << "advisorbot> The available commands are: help, prod, min, max, avg, predict, time, step, exit." << std::endl;
     std::cout << "advisorbot> Use help <cmd> for the specified command's usage." << std::endl;
 }
 
-void ChatMain::help(std::vector<std::string> args)
+void AppMain::help(std::vector<std::string> args)
 {
     if (args.size() == 0)
     {
@@ -89,13 +89,13 @@ void ChatMain::help(std::vector<std::string> args)
         std::cout << "advisorbot> Unknown command: " << command << std::endl;
 }
 
-void ChatMain::terminate()
+void AppMain::terminate()
 {
     std::cout << "advisorbot> Bye!" << std::endl;
     exit(0);
 }
 
-std::string ChatMain::readUserInput()
+std::string AppMain::readUserInput()
 {
     std::string line;
     std::cout << "user> ";
@@ -104,7 +104,7 @@ std::string ChatMain::readUserInput()
     return line;
 }
 
-void ChatMain::processUserInput(std::string userInput)
+void AppMain::processUserInput(std::string userInput)
 {
     std::vector<std::string> tokens;
 
