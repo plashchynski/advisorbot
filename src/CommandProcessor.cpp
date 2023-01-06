@@ -88,6 +88,8 @@ void CommandProcessor::execute(std::string userInput)
         avg(args);
     else if (command == "step")
         step();
+    else if (command == "back")
+        back();
     else if (command == "time")
         time();
     else
@@ -237,7 +239,22 @@ void CommandProcessor::avg(const std::vector<std::string>& args)
 void CommandProcessor::step()
 {
     currentTime = orderBook.getNextTime(currentTime);
-    std::cout << "advisorbot> now at " << currentTime << std::endl;
+    time();
+}
+
+/**
+ * Move back to the previous time step.
+*/
+void CommandProcessor::back()
+{
+    std::vector<std::string> previousTimeStep = orderBook.getLastTimestamps(currentTime, 2);
+
+    if (previousTimeStep.size() < 2)
+        std::cout << "advisorbot> This is the first time stemp in the book." << std::endl;
+    else
+        currentTime = previousTimeStep[0];
+
+    time();
 }
 
 /**
@@ -245,6 +262,5 @@ void CommandProcessor::step()
 */
 void CommandProcessor::time()
 {
-    currentTime = orderBook.getNextTime(currentTime);
     std::cout << "advisorbot> now at " << currentTime << std::endl;
 }

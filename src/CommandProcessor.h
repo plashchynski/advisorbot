@@ -75,6 +75,11 @@ class CommandProcessor
         void step();
 
         /**
+         * Move back to the previous time step.
+        */
+        void back();
+
+        /**
          * Print the current time.
         */
         void time();
@@ -88,6 +93,7 @@ class CommandProcessor
             {"predict", "advisorbot> predict {max min} <product> {ask bid} : Predict max or min ask or bid price for the specified product for the next time step.\nadvisorbot> predict max ETH/BTC bid -> predicted max bid price for ETH/BTC for the next time step."},
             {"time", "advisorbot> time: Prints the current time."},
             {"step", "advisorbot> step: Move to the next time step."},
+            {"back", "advisorbot> back: Move back to the previous time step."},
             {"exit", "advisorbot> exit: Exit from the chat."}
         };
 };
