@@ -36,39 +36,13 @@ void CommandProcessor::help(const std::vector<std::string>& args)
 
     std::string command = args[0];
 
-    // TODO: This is a bit of a hack. We should probably have a map of commands to help messages.
-    if (command == "help")
-        std::cout << "advisorbot> help: Prints this help message." << std::endl;
-    else if (command == "prod")
-        std::cout << "advisorbot> prod: Prints the products that are currently being traded." << std::endl;
-    else if (command == "min")
+    if (helpMessages.find(command) == helpMessages.end())
     {
-        std::cout << "advisorbot> min <product> {ask bid}: Find minimum bid or ask for product in current time step." << std::endl;
-        std::cout << "advisorbot> min ETH/BTC ask -> The min ask for ETH/BTC is 1.0" << std::endl;
-    }
-    else if (command == "max")
-    {
-        std::cout << "advisorbot> max <product> {ask bid}: Find maximum bid or ask for product in current time step." << std::endl;
-        std::cout << "advisorbot> max ETH/BTC ask -> The max ask for ETH/BTC is 1.0" << std::endl;
-    }
-    else if (command == "avg")
-    {
-        std::cout << "advisorbot> avg <product> {ask bid} <timesteps>: Compute average ask or bid price for the product over the specified number of time steps." << std::endl;
-        std::cout << "advisorbot> avg ETH/BTC bid 10 -> average ETH/BTC bid over last 10 time steps." << std::endl;
-    }
-    else if (command == "predict")
-    {
-        std::cout << "advisorbot> predict {max min} <product> {ask bid} : Predict max or min ask or bid price for the specified product for the next time step." << std::endl;
-        std::cout << "advisorbot> predict max ETH/BTC bid -> predicted max bid price for ETH/BTC for the next time step." << std::endl;
-    }
-    else if (command == "time")
-        std::cout << "advisorbot> time: Prints the current time." << std::endl;
-    else if (command == "step")
-        std::cout << "advisorbot> step: Move to the next time step." << std::endl;
-    else if (command == "exit")
-        std::cout << "advisorbot> exit: Exit from the chat." << std::endl;
-    else
         std::cout << "advisorbot> Unknown command: " << command << std::endl;
+        return;
+    }
+
+    std::cout << helpMessages[command] << std::endl;
 }
 
 void CommandProcessor::terminate()
