@@ -1,3 +1,7 @@
+/**
+ * This class contains functions to read a CSV file and convert it into a vector of OrderBookEntry objects.
+*/
+
 #pragma once
 
 #include "OrderBookEntry.h"

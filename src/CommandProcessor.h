@@ -84,6 +84,9 @@ class CommandProcessor
         */
         void time();
 
+        /**
+         * These are usage messages for the help <cmd> command.
+        */
         std::map<std::string, std::string> helpMessages = {
             {"help", "advisorbot> help: Prints this help message."},
             {"prod", "advisorbot> prod: Prints the products that are currently being traded."},

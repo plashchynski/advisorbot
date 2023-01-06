@@ -1,6 +1,6 @@
 /**
- * @brief A class implementing a linear regression model
- * 
+ * A class implementing a linear regression model
+ *
  * Example usage:
  *  LinearRegression lr;
  *  lr.fit({1,2,3,4,5}, {1,2,3,4,5});
@@ -19,18 +19,20 @@ class LinearRegression
         LinearRegression();
 
         /**
-         * @brief Fit a linear regression model to the data
+         * Fit a linear regression model to the data
          * use Least Squares Estimates
-         * 
+         *
          * @param x vector of independent variable values
          * @param y vector of dependent variable values
         */
         void fit(const std::vector<double> &x, const std::vector<double> &y);
 
         /**
-         * @brief Predict the value of y for a given value of x
-         * 
+         * Predict the value of y for a given value of x
+         *
          * @param x value of the independent variable
+         *
+         * @return predicted value of the dependent variable
         */
         double predict(const double &x);
 };

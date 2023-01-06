@@ -1,3 +1,7 @@
+/**
+ * This class represents an order book
+*/
+
 #pragma once
 #include "OrderBookEntry.h"
 #include "CSVReader.h"

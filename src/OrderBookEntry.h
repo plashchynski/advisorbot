@@ -1,3 +1,6 @@
+/**
+ * This class represents an entry in the order book
+*/
 #pragma once
 
 #include <string>
