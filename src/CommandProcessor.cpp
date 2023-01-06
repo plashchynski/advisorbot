@@ -224,12 +224,8 @@ void CommandProcessor::avg(const std::vector<std::string>& args)
         return;
     }
 
-    OrderBookType orderBookType;
-    if (orderBookTypeString == "ask")
-        orderBookType = OrderBookType::ask;
-    else if (orderBookTypeString == "bid")
-        orderBookType = OrderBookType::bid;
-    else
+    OrderBookType orderBookType = OrderBookEntry::stringToOrderBookType(orderBookTypeString);
+    if (orderBookType == OrderBookType::unknown)
     {
         std::cout << "advisorbot> Invalid order book type: " << orderBookTypeString << std::endl;
         return;
@@ -269,12 +265,8 @@ void CommandProcessor::volume(const std::vector<std::string>& args)
         return;
     }
 
-    OrderBookType orderBookType;
-    if (orderBookTypeString == "ask")
-        orderBookType = OrderBookType::ask;
-    else if (orderBookTypeString == "bid")
-        orderBookType = OrderBookType::bid;
-    else
+    OrderBookType orderBookType = OrderBookEntry::stringToOrderBookType(orderBookTypeString);
+    if (orderBookType == OrderBookType::unknown)
     {
         std::cout << "advisorbot> Invalid order book type: " << orderBookTypeString << std::endl;
         return;

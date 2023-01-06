@@ -7,7 +7,6 @@
 
 AppMain::AppMain()
 {
-
 }
 
 /**
@@ -15,6 +14,8 @@ AppMain::AppMain()
  */
 void AppMain::start()
 {
+    std::cout.precision(floatPrecision);
+
     std::string input;
 
     CommandProcessor commandProcessor{};
@@ -29,7 +30,7 @@ void AppMain::start()
         if (std::cin.eof())
         {
             std::cout << "exit" << std::endl;
-            commandProcessor.terminate();
+            CommandProcessor::terminate();
         }
 
         commandProcessor.execute(input);

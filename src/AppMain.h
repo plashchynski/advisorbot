@@ -18,4 +18,6 @@ class AppMain
          * @return The user input
          */
         std::string readUserInput();
+
+        const int floatPrecision = 5;
 };

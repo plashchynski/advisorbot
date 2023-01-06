@@ -35,7 +35,7 @@ class CommandProcessor
         /**
          * Exit the program.
         */
-        void terminate();
+        static void terminate();
 
         /**
          * Load the order book from the specified file.
