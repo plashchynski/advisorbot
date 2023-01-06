@@ -2,6 +2,12 @@
 
 Midterm project for the course "Object Oriented Programming" at the University of London.
 
+## Dependencies
+
+* [Boost C++ Libraries >= 1.80](https://www.boost.org/)
+* [CMake => 3.10](https://cmake.org/)
+* [C++17 Compiler](https://gcc.gnu.org/)
+
 ## Build
 
 1. ```20200601.csv``` should be placed into ```data/``` folder.
