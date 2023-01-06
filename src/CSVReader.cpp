@@ -20,6 +20,7 @@ std::vector<OrderBookEntry> CSVReader::readCSV(std::string csvFilename)
 {
     std::vector<OrderBookEntry> entries;
 
+    // open the file
     std::ifstream csvFile{csvFilename};
     if (!csvFile.is_open())
     {
@@ -27,12 +28,13 @@ std::vector<OrderBookEntry> CSVReader::readCSV(std::string csvFilename)
         return entries;
     }
 
+    // read the file line by line
     std::string line;
     while(std::getline(csvFile, line))
     {
         try {
             OrderBookEntry obe = stringsToOBE(tokenise(line, ','));
-            entries.push_back(std::move(obe));
+            entries.push_back(std::move(obe)); // std::move() is used to avoid copying
         } catch(const std::exception& e)
         {
             std::cout << "CSVReader::readCSV bad data"  << std::endl;
@@ -71,6 +73,9 @@ OrderBookEntry CSVReader::stringsToOBE(const std::vector<std::string>& tokens)
         throw;
     }
 
+    // Enable mandatory elision of copy as a Return value optimization (RVO) by
+    // using prvalue as an operand of return statement
+    // More info: https://en.cppreference.com/w/cpp/language/copy_elision
     return OrderBookEntry {
         price,
         amount,
@@ -108,6 +113,7 @@ std::vector<std::string> CSVReader::tokenise(const std::string &csvLine, char se
         else
             token = csvLine.substr(start, csvLine.length() - start);
 
+        // std::move() is used to avoid copying
         tokens.push_back(std::move(token));
         start = end + 1;
     } while (end > 0);
