@@ -19,7 +19,7 @@ add_library(LinearRegression src/LinearRegression.cpp)
 add_library(CommandProcessor src/CommandProcessor.cpp)
 
 # Add definition for Boost
-find_package(Boost 1.80 REQUIRED COMPONENTS iostreams unit_test_framework)
+find_package(Boost 1.74 REQUIRED COMPONENTS iostreams unit_test_framework)
 include_directories(${Boost_INCLUDE_DIRS})
 
 # Unit tests

@@ -4,7 +4,7 @@ Midterm project for the course "Object Oriented Programming" at the University o
 
 ## Dependencies
 
-* [Boost C++ Libraries version >= 1.80](https://www.boost.org/)
+* [Boost C++ Libraries version >= 1.74](https://www.boost.org/)
 * [CMake version => 3.10](https://cmake.org/)
 * [C++17 Compiler](https://gcc.gnu.org/)
 
