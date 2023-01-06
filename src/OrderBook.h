@@ -69,6 +69,16 @@ class OrderBook
         */
         static double getAveragePrice(std::vector<OrderBookEntry>& orders);
 
+        /**
+         * Returns the total volume among provided orders
+        */
+        static double getTotalVolume(std::vector<OrderBookEntry>& orders);
+
+        /**
+         * Return the number of orders in the orderbook
+        */
+        unsigned long getNumberOfOrders();
+
     private:
         std::vector<OrderBookEntry> orders;
 };

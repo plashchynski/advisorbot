@@ -23,21 +23,20 @@ std::vector<OrderBookEntry> CSVReader::readCSV(std::string csvFilename)
     // open the file
     std::ifstream csvFile{csvFilename};
     if (!csvFile.is_open())
-    {
-        std::cout << "CSVReader::readCSV failed to open the file " << csvFilename << std::endl;
-        return entries;
-    }
+        throw std::runtime_error{"Failed to open the file " + csvFilename};
 
     // read the file line by line
     std::string line;
+    long unsigned int lineCount = 0;
     while(std::getline(csvFile, line))
     {
+        lineCount++;
         try {
             OrderBookEntry obe = stringsToOBE(tokenise(line, ','));
             entries.push_back(std::move(obe)); // std::move() is used to avoid copying
         } catch(const std::exception& e)
         {
-            std::cout << "CSVReader::readCSV bad data"  << std::endl;
+            throw std::runtime_error{"Error on line " + std::to_string(lineCount) + " of file " + csvFilename + ": " + e.what()};
         }
     }
 
@@ -57,20 +56,16 @@ OrderBookEntry CSVReader::stringsToOBE(const std::vector<std::string>& tokens)
     double price, amount;
 
     if (tokens.size() != 5)
-    {
-        std::cout << "Bad line " << std::endl;
-        throw std::exception{};
-    }
+        throw std::runtime_error{"Wrong number of tokens"};
 
     try
     {
-         price = std::stod(tokens[3]);
-         amount = std::stod(tokens[4]);
-    } catch(const std::exception& e)
+        price = std::stod(tokens[3]);
+        amount = std::stod(tokens[4]);
+    }
+    catch(const std::exception& e)
     {
-        std::cout << "CSVReader::stringsToOBE Bad float! " << tokens[3]<< std::endl;
-        std::cout << "CSVReader::stringsToOBE Bad float! " << tokens[4]<< std::endl;
-        throw;
+        throw std::runtime_error{"Bad format of floating point number"};
     }
 
     // Enable mandatory elision of copy as a Return value optimization (RVO) by
@@ -88,7 +83,7 @@ OrderBookEntry CSVReader::stringsToOBE(const std::vector<std::string>& tokens)
 /**
  * This code is based on the original CSVReader::tokenise() function provided in the course.
  * It has been modified to use const references and to use std::move() to avoid copying.
- * 
+ *
  * This function tokenises (splits) a string into a vector of strings by the specified separator
  *
  * @param csvLine The line to be tokenised

@@ -110,6 +110,9 @@
         "compare": "cpp",
         "concepts": "cpp",
         "variant": "cpp",
-        "any": "cpp"
+        "any": "cpp",
+        "__availability": "cpp",
+        "format": "cpp",
+        "charconv": "cpp"
     }
 }

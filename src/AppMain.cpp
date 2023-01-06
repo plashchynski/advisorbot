@@ -19,6 +19,7 @@ void AppMain::start()
 
     CommandProcessor commandProcessor{};
     commandProcessor.help();
+    commandProcessor.load({"20200601.csv"});
 
     while(true)
     {

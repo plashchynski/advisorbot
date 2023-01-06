@@ -12,8 +12,6 @@
 */
 CommandProcessor::CommandProcessor()
 {
-    orderBook.loadBook("20200601.csv");
-    currentTime = orderBook.getEarliestTime();
 }
 
 /**
@@ -98,6 +96,10 @@ void CommandProcessor::execute(std::string userInput)
         back();
     else if (command == "time")
         time();
+    else if (command == "load")
+        load(args);
+    else if (command == "volume")
+        volume(args);
     else
         std::cout << "advisorbot> Unknown command: " << command << std::endl;
 }
@@ -239,6 +241,51 @@ void CommandProcessor::avg(const std::vector<std::string>& args)
     std::cout << "advisorbot> The average " << product << " " << orderBookTypeString << " price over the last " << timesteps << " was " << average << std::endl;
 }
 
+void CommandProcessor::volume(const std::vector<std::string>& args)
+{
+    if (args.size() != 3)
+    {
+        std::cout << "advisorbot> Invalid number of arguments for avg." << std::endl;
+        return;
+    }
+
+    std::string product = args[0];
+    std::string orderBookTypeString = args[1];
+    std::string timestepsString = args[2];
+    int timesteps;
+    try
+    {
+        timesteps = std::stoi(timestepsString);
+    }
+    catch (std::invalid_argument const &e)
+    {
+        std::cout << "advisorbot> Invalid number of timesteps: " << timestepsString << std::endl;
+        return;
+    }
+
+    if (timesteps <= 0)
+    {
+        std::cout << "advisorbot> Invalid number of timesteps: " << timestepsString << std::endl;
+        return;
+    }
+
+    OrderBookType orderBookType;
+    if (orderBookTypeString == "ask")
+        orderBookType = OrderBookType::ask;
+    else if (orderBookTypeString == "bid")
+        orderBookType = OrderBookType::bid;
+    else
+    {
+        std::cout << "advisorbot> Invalid order book type: " << orderBookTypeString << std::endl;
+        return;
+    }
+
+    std::vector<std::string> timestamps = orderBook.getLastTimestamps(currentTime, timesteps);
+    std::vector<OrderBookEntry> entries = orderBook.getOrders(orderBookType, product, timestamps);
+    double average = OrderBook::getTotalVolume(entries);
+    std::cout << "advisorbot> The volume of " << product << " " << orderBookTypeString << " over the last " << timesteps << " was " << average << std::endl;
+}
+
 /**
  * Move to the next time step.
 */
@@ -269,4 +316,33 @@ void CommandProcessor::back()
 void CommandProcessor::time()
 {
     std::cout << "advisorbot> now at " << currentTime << std::endl;
+}
+
+/**
+ * Load the order book from the specified file.
+*/
+void CommandProcessor::load(const std::vector<std::string>& args)
+{
+    if (args.size() != 1)
+    {
+        std::cout << "advisorbot> Invalid number of arguments for load." << std::endl;
+        return;
+    }
+
+    std::cout << "advisorbot> Loading an order book from " << args[0] << std::endl;
+    std::cout << "advisorbot> Please wait... " << std::endl;
+
+    std::string filename = args[0];
+
+    try
+    {
+        orderBook.loadBook(filename);
+    } catch (std::exception& e)
+    {
+        std::cout << "advisorbot> Error loading the order book: " << e.what() << std::endl;
+        return;
+    }
+
+    currentTime = orderBook.getEarliestTime();
+    std::cout << "advisorbot> Loaded " << orderBook.getNumberOfOrders() << " entries from order book " << filename << std::endl;
 }

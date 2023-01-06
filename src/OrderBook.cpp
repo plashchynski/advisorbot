@@ -116,6 +116,18 @@ double OrderBook::getAveragePrice(std::vector<OrderBookEntry>& orders)
     return sum / orders.size();
 }
 
+double OrderBook::getTotalVolume(std::vector<OrderBookEntry>& orders)
+{
+    double sum = 0;
+
+    for (OrderBookEntry& e : orders)
+    {
+        sum += e.price * e.amount;
+    }
+
+    return sum;
+}
+
 /**
  * Returns the average price among provided orders
 */
@@ -210,4 +222,8 @@ std::vector<std::string> OrderBook::getLastTimestamps(std::string tillTimestamp,
     }
 
     return result;
+}
+
+unsigned long OrderBook::getNumberOfOrders() {
+    return orders.size();
 }
