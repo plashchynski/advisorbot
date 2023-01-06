@@ -10,6 +10,9 @@ AppMain::AppMain()
 
 }
 
+/**
+ * Starts the application
+ */
 void AppMain::start()
 {
     std::string input;
@@ -32,6 +35,10 @@ void AppMain::start()
     }
 }
 
+/** 
+ * Reads user input from the console
+ * @return The user input
+ */
 std::string AppMain::readUserInput()
 {
     std::string line;

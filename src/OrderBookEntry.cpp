@@ -16,17 +16,16 @@ OrderBookEntry::OrderBookEntry(
 {
 }
 
+/**
+ * Converts a string to an OrderBookType
+*/
 OrderBookType OrderBookEntry::stringToOrderBookType(std::string string)
 {
     if (string == "ask")
-    {
         return OrderBookType::ask;
-    }
 
     if (string == "bid")
-    {
         return OrderBookType::bid;
-    }
 
     return OrderBookType::unknown;
 }

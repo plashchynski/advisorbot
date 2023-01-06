@@ -83,6 +83,8 @@ OrderBookEntry CSVReader::stringsToOBE(const std::vector<std::string>& tokens)
 /**
  * This code is based on the original CSVReader::tokenise() function provided in the course.
  * It has been modified to use const references and to use std::move() to avoid copying.
+ * 
+ * This function tokenises (splits) a string into a vector of strings by the specified separator
  *
  * @param csvLine The line to be tokenised
  * @param separator The character to use as a separator

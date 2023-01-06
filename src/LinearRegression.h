@@ -20,11 +20,17 @@ class LinearRegression
 
         /**
          * @brief Fit a linear regression model to the data
+         * use Least Squares Estimates
+         * 
+         * @param x vector of independent variable values
+         * @param y vector of dependent variable values
         */
         void fit(const std::vector<double> &x, const std::vector<double> &y);
 
         /**
          * @brief Predict the value of y for a given value of x
+         * 
+         * @param x value of the independent variable
         */
         double predict(const double &x);
 };

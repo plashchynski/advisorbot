@@ -56,9 +56,11 @@ void LinearRegression::fit(const std::vector<double> &x, const std::vector<doubl
     std::valarray<double> x_vec(x.data(), x.size());
     std::valarray<double> y_vec(y.data(), y.size());
 
+    // Mean values of X and Y
     double x_mean = x_vec.sum() / x_vec.size();
     double y_mean = y_vec.sum() / y_vec.size();
 
+    // Calculate the coefficients
     b1 = ((x_vec - x_mean) * (y_vec - y_mean)).sum() / std::pow(x_vec - x_mean, 2).sum();
     b0 = y_mean - b1 * x_mean;
 }

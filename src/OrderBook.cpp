@@ -8,6 +8,7 @@
 #include "CSVReader.h"
 #include "LinearRegression.h"
 
+// constructor
 OrderBook::OrderBook()
 {
 
@@ -72,6 +73,9 @@ std::vector<OrderBookEntry> OrderBook::getOrders(OrderBookType type,
     return results;
 }
 
+/**
+ * Returns the highest price among provided orders
+*/
 double OrderBook::getHighPrice(std::vector<OrderBookEntry>& orders)
 {
     double max = orders[0].price;
@@ -83,6 +87,9 @@ double OrderBook::getHighPrice(std::vector<OrderBookEntry>& orders)
     return max;
 }
 
+/**
+ * Returns the lowest price among provided orders
+*/
 double OrderBook::getLowPrice(std::vector<OrderBookEntry>& orders)
 {
     double min = orders[0].price;
@@ -94,6 +101,9 @@ double OrderBook::getLowPrice(std::vector<OrderBookEntry>& orders)
     return min;
 }
 
+/**
+ * Returns the average price among provided orders
+*/
 double OrderBook::getAveragePrice(std::vector<OrderBookEntry>& orders)
 {
     double sum = 0;
@@ -106,6 +116,9 @@ double OrderBook::getAveragePrice(std::vector<OrderBookEntry>& orders)
     return sum / orders.size();
 }
 
+/**
+ * Returns the average price among provided orders
+*/
 double OrderBook::predict(std::string maxMin, std::string product, OrderBookType orderBookType, std::string currentTime)
 {
     std::vector<double> prices;
@@ -132,11 +145,18 @@ double OrderBook::predict(std::string maxMin, std::string product, OrderBookType
     return prediction;
 }
 
+/**
+ * Returns the earliest timestamp in the orderbook
+*/
 std::string OrderBook::getEarliestTime()
 {
     return orders[0].timestamp;
 }
 
+/**
+ * Returns the next time after the specified timestamp
+ * If there is no next timestamp, wraps around to the start
+*/
 std::string OrderBook::getNextTime(std::string timestamp)
 {
     std::string next_timestamp = "";
@@ -165,7 +185,7 @@ std::string OrderBook::getNextTime(std::string timestamp)
  * @param tillTimestamp till which timestamp to return
  * @param number number of timestamps to return
  * @return A vector of found timestamps
- */
+*/
 std::vector<std::string> OrderBook::getLastTimestamps(std::string tillTimestamp, int number)
 {
     std::string prev_timestamp = "";

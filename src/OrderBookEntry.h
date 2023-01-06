@@ -14,6 +14,9 @@ class OrderBookEntry
                         OrderBookType _orderType, 
                         std::string username = "dataset");
 
+        /**
+         * Converts a string to an OrderBookType
+        */
         static OrderBookType stringToOrderBookType(std::string s);
 
         double price;
