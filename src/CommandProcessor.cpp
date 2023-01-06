@@ -2,6 +2,8 @@
 #include <vector>
 
 #include <boost/algorithm/string.hpp>
+#include <boost/range/adaptor/map.hpp>
+#include <boost/range/algorithm/copy.hpp>
 
 #include "CommandProcessor.h"
 
@@ -19,7 +21,11 @@ CommandProcessor::CommandProcessor()
   */
 void CommandProcessor::help()
 {
-    std::cout << "advisorbot> The available commands are: help, prod, min, max, avg, predict, time, step, exit." << std::endl;
+    std::vector<std::string> commands;
+    // Copy the keys from the map into the vector
+    boost::copy(helpMessages | boost::adaptors::map_keys, std::back_inserter(commands));
+
+    std::cout << "advisorbot> The available commands are: " << boost::join(commands, ", ") << "." << std::endl;
     std::cout << "advisorbot> Use help <cmd> for the specified command's usage." << std::endl;
 }
 
