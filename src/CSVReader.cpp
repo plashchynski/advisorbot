@@ -4,7 +4,6 @@
 
 CSVReader::CSVReader()
 {
-
 }
 
 /**
@@ -31,7 +30,8 @@ std::vector<OrderBookEntry> CSVReader::readCSV(std::string csvFilename)
     while(std::getline(csvFile, line))
     {
         lineCount++;
-        try {
+        try
+        {
             OrderBookEntry obe = stringsToOBE(tokenise(line, ','));
             entries.push_back(std::move(obe)); // std::move() is used to avoid copying
         } catch(const std::exception& e)

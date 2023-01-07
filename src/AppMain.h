@@ -17,7 +17,8 @@ class AppMain
          * Reads user input from the console
          * @return The user input
          */
-        std::string readUserInput();
+        static std::string readUserInput();
 
+        // The setting for precision of the float values displayed in the console
         const int floatPrecision = 5;
 };

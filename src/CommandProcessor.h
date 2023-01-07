@@ -33,9 +33,9 @@ class CommandProcessor
         void help();
 
         /**
-         * Exit the program.
+         * Exit the application.
         */
-        static void terminate();
+        void terminate();
 
         /**
          * Load the order book from the specified file.
@@ -97,20 +97,27 @@ class CommandProcessor
         void time();
 
         /**
+         * The promt that is displayed before each user input
+        */ 
+        const std::string promt {"advisorbot> "};
+
+        /**
          * These are usage messages for the help <cmd> command.
         */
         std::map<std::string, std::string> helpMessages = {
-            {"help", "advisorbot> help: Prints this help message."},
-            {"prod", "advisorbot> prod: Prints the products that are currently being traded."},
-            {"min", "advisorbot> min <product> {ask bid}: Find minimum bid or ask for product in current time step.\nadvisorbot> min ETH/BTC ask -> The min ask for ETH/BTC is 1.0"},
-            {"max", "advisorbot> max <product> {ask bid}: Find maximum bid or ask for product in current time step.\nadvisorbot> max ETH/BTC ask -> The max ask for ETH/BTC is 1.0"},
-            {"avg", "advisorbot> avg <product> {ask bid} <timesteps>: Compute average ask or bid price for the product over the specified number of time steps.\nadvisorbot> avg ETH/BTC bid 10 -> average of ETH/BTC bid over last 10 time steps."},
-            {"predict", "advisorbot> predict {max min} <product> {ask bid} : Predict max or min ask or bid price for the specified product for the next time step.\nadvisorbot> predict max ETH/BTC bid -> predicted max bid price for ETH/BTC for the next time step."},
-            {"time", "advisorbot> time: Prints the current time."},
-            {"step", "advisorbot> step: Move to the next time step."},
-            {"back", "advisorbot> back: Move back to the previous time step."},
-            {"load", "advisorbot> load <filename>: Load the order book from the specified file."},
-            {"volume", "advisorbot> volume <product> {ask bid} <timesteps>: Compute the volume of the specified product over the specified number of time steps.\nadvisorbot> volume ETH/BTC bid 10 -> volume of ETH/BTC bid over last 10 time steps."},
-            {"exit", "advisorbot> exit: Exit from the chat."}
+            {"help", promt + "help: Prints this help message."},
+            {"prod", promt + "prod: Prints the products that are currently being traded."},
+            {"min", promt + "min <product> {ask bid}: Find minimum bid or ask for product in current time step.\n" + promt + "min ETH/BTC ask -> The min ask for ETH/BTC is 1.0"},
+            {"max", promt + "max <product> {ask bid}: Find maximum bid or ask for product in current time step.\n" + promt + "max ETH/BTC ask -> The max ask for ETH/BTC is 1.0"},
+            {"avg", promt + "avg <product> {ask bid} <timesteps>: Compute average ask or bid price for the product over the specified number of time steps.\n" + promt + "avg ETH/BTC bid 10 -> average of ETH/BTC bid over last 10 time steps."},
+            {"predict", promt + "predict {max min} <product> {ask bid} : Predict max or min ask or bid price for the specified product for the next time step.\n" + promt + "predict max ETH/BTC bid -> predicted max bid price for ETH/BTC for the next time step."},
+            {"time", promt + "time: Prints the current time."},
+            {"step", promt + "step: Move to the next time step."},
+            {"back", promt + "back: Move back to the previous time step."},
+            {"load", promt + "load <filename>: Load the order book from the specified file."},
+            {"volume", promt + "volume <product> {ask bid} <timesteps>: Compute the volume of the specified product over the specified number of time steps.\n" + promt + "volume ETH/BTC bid 10 -> volume of ETH/BTC bid over last 10 time steps."},
+            {"exit", promt + "exit: Exit from the chat."}
         };
+
+
 };

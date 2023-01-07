@@ -14,14 +14,16 @@ AppMain::AppMain()
  */
 void AppMain::start()
 {
+    // Set the precision of the float values displayed in the console
     std::cout.precision(floatPrecision);
 
-    std::string input;
-
+    // These commands run automatically when the application starts
     CommandProcessor commandProcessor{};
     commandProcessor.help();
     commandProcessor.load({"20200601.csv"});
 
+    // String to store the user input
+    std::string input;
     while(true)
     {
         input = readUserInput();
@@ -29,10 +31,12 @@ void AppMain::start()
         // Ctrl+D pressed
         if (std::cin.eof())
         {
+            // It counts as an exit command
             std::cout << "exit" << std::endl;
-            CommandProcessor::terminate();
+            commandProcessor.terminate();
         }
 
+        // Execute the command entered by the user
         commandProcessor.execute(input);
     }
 }
