@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.10)
 
 set(PROJECT_NAME_STR advisorbot)
-set(PROJECT_MODULES CSVReader AppMain OrderBook OrderBookEntry LinearRegression CommandProcessor)
+set(PROJECT_MODULES CSVReader AppMain OrderBook LinearRegression CommandProcessor)
 
 # Define the project
 project(${PROJECT_NAME_STR})
@@ -14,7 +14,6 @@ set(CMAKE_CXX_STANDARD 17)
 add_library(CSVReader src/CSVReader.cpp)
 add_library(AppMain src/AppMain.cpp)
 add_library(OrderBook src/OrderBook.cpp)
-add_library(OrderBookEntry src/OrderBookEntry.cpp)
 add_library(LinearRegression src/LinearRegression.cpp)
 add_library(CommandProcessor src/CommandProcessor.cpp)
 
