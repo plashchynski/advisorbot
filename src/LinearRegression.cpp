@@ -18,8 +18,7 @@ double LinearRegression::predict(const double &x)
 }
 
 /**
- * Fit a linear regression model to the data
- * use Least Squares Estimates
+ * Fit a linear regression model to the data using Least Squares Estimates.
  * Math description: https://www.amherst.edu/system/files/media/1287/SLR_Leastsquares.pdf
  *
  * This method was originally proposed in:
