@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_SUITE(csv_reader_test_suite)
         {
             OrderBookEntry obe = CSVReader::stringsToOBE(CSVReader::tokenise(line, ','));
 
-            entries.push_back(obe);
+            entries.push_back(std::move(obe));
         }
 
         BOOST_CHECK_EQUAL(entries[0].timestamp, "2020/06/01 11:57:30.328127");
