@@ -6,7 +6,7 @@ set(PROJECT_MODULES CSVReader AppMain OrderBook OrderBookEntry LinearRegression 
 # Define the project
 project(${PROJECT_NAME_STR})
 
-# Following the dicussion on allowed C++ version here:
+# Following the dicussion on allowed C++ standard here:
 # https://www.coursera.org/learn/uol-object-oriented-programming/discussions/groups/7OvPlihdEe2VsgoeiZ5qVw/threads/im0JLU7XEe2vVg6vl34jZQ
 set(CMAKE_CXX_STANDARD 17)
 
