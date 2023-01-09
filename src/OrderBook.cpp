@@ -131,7 +131,7 @@ double OrderBook::getTotalVolume(std::vector<OrderBookEntry>& orders)
 
     for (OrderBookEntry& e : orders)
     {
-        sum += e.price * e.amount;
+        sum += e.amount;
     }
 
     return sum;

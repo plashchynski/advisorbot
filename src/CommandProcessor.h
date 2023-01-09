@@ -115,7 +115,7 @@ class CommandProcessor
             {"step", promt + "step: Move to the next time step."},
             {"back", promt + "back: Move back to the previous time step."},
             {"load", promt + "load <filename>: Load the order book from the specified file."},
-            {"volume", promt + "volume <product> {ask bid} <timesteps>: Compute the volume of the specified product over the specified number of time steps.\n" + promt + "volume ETH/BTC bid 10 -> volume of ETH/BTC bid over last 10 time steps."},
+            {"volume", promt + "volume <product> {ask bid} <timesteps>: Compute the volume (the amount) of the specified product traded over the specified number of time steps.\n" + promt + "volume ETH/BTC bid 10 -> volume of ETH/BTC bid over last 10 time steps."},
             {"exit", promt + "exit: Exit from the chat."}
         };
 

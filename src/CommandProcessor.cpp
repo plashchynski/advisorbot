@@ -315,8 +315,8 @@ void CommandProcessor::volume(const std::vector<std::string>& args)
         std::cout << promt << "No orders found matching the criteria." << std::endl;
         return;
     }
-    double average = OrderBook::getTotalVolume(entries);
-    std::cout << promt << "The volume of " << product << " " << orderBookTypeString << " over the last " << timesteps << " was " << average << std::endl;
+    double volume = OrderBook::getTotalVolume(entries);
+    std::cout << promt << "The volume of " << product << " " << orderBookTypeString << " over the last " << timesteps << " was " << volume << std::endl;
 }
 
 /**
