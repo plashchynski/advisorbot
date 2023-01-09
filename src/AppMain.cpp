@@ -47,8 +47,11 @@ void AppMain::start()
  */
 std::string AppMain::readUserInput()
 {
+    const std::string green{"\033[0m"};
+    const std::string reset{"\033[32m"};
+
     std::string line;
-    std::cout << "user> ";
+    std::cout << reset << "user> " << green;
     std::getline(std::cin, line);
 
     return line;

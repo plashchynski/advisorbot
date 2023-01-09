@@ -97,9 +97,15 @@ class CommandProcessor
         void time();
 
         /**
+         * Color for the console
+        */
+        const std::string bold_blue {"\033[1m\033[34m"};
+        const std::string color_reset {"\033[0m"};
+
+        /**
          * The promt that is displayed before each user input
-        */ 
-        const std::string promt {"advisorbot> "};
+        */
+        const std::string promt {bold_blue + "advisorbot> " + color_reset};
 
         /**
          * These are usage messages for the help <cmd> command.
