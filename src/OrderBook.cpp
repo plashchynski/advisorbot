@@ -92,6 +92,9 @@ double OrderBook::getHighPrice(std::vector<OrderBookEntry>& orders)
 */
 double OrderBook::getLowPrice(std::vector<OrderBookEntry>& orders)
 {
+    if (orders.empty())
+        throw std::runtime_error{"No orders found to calculate low price"};
+
     double min = orders[0].price;
     for (OrderBookEntry& e : orders)
     {
@@ -106,6 +109,9 @@ double OrderBook::getLowPrice(std::vector<OrderBookEntry>& orders)
 */
 double OrderBook::getAveragePrice(std::vector<OrderBookEntry>& orders)
 {
+    if (orders.empty())
+        throw std::runtime_error{"No orders found to calculate average price"};
+
     double sum = 0;
 
     for (OrderBookEntry& e : orders)
@@ -118,6 +124,9 @@ double OrderBook::getAveragePrice(std::vector<OrderBookEntry>& orders)
 
 double OrderBook::getTotalVolume(std::vector<OrderBookEntry>& orders)
 {
+    if (orders.empty())
+        throw std::runtime_error{"No orders found to calculate volume"};
+
     double sum = 0;
 
     for (OrderBookEntry& e : orders)
@@ -139,6 +148,8 @@ double OrderBook::predict(std::string maxMin, std::string product, OrderBookType
     for (std::string& timestamp : timestamps)
     {
         std::vector<OrderBookEntry> orders = getOrders(orderBookType, product, timestamp);
+        if (orders.empty())
+            continue;
 
         if (maxMin == "min") {
             prices.push_back(getLowPrice(orders));
@@ -147,7 +158,11 @@ double OrderBook::predict(std::string maxMin, std::string product, OrderBookType
         }
     }
 
+    if (prices.empty())
+        throw std::runtime_error{"Sorry, we do not have historical price values for this product to make any predictions."};
+
     std::vector<double> x(prices.size());
+    // it produces a vector {1,2,3,4,5,...} for x values
     std::iota(x.begin(), x.end(), 1);
 
     LinearRegression lr;

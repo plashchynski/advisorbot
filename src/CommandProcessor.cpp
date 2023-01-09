@@ -77,7 +77,8 @@ void CommandProcessor::execute(std::string userInput)
 
     // split the user input into tokens
     std::vector<std::string> tokens;
-    boost::split(tokens, userInput, [](char c){return c == ' ';});
+    // The boost::token_compress_on is used to ignore any consecutive whitespaces
+    boost::split(tokens, userInput, boost::is_any_of("\t "), boost::token_compress_on);
 
     // empty command? return
     if (tokens.size() == 0)
@@ -146,6 +147,11 @@ void CommandProcessor::min(const std::vector<std::string>& args)
     }
 
     std::vector<OrderBookEntry> entries = orderBook.getOrders(orderBookType, product, currentTime);
+    if (entries.empty())
+    {
+        std::cout << promt << "No orders found matching the criteria." << std::endl;
+        return;
+    }
     std::cout << promt << "The min " << orderBookTypeString << " for " << product << " is " << OrderBook::getLowPrice(entries) << std::endl;
 }
 
@@ -170,6 +176,11 @@ void CommandProcessor::max(const std::vector<std::string>& args)
     }
 
     std::vector<OrderBookEntry> entries = orderBook.getOrders(orderBookType, product, currentTime);
+    if (entries.empty())
+    {
+        std::cout << promt << "No orders found matching the criteria." << std::endl;
+        return;
+    }
     std::cout << promt << "The max " << orderBookTypeString << " for " << product << " is " << OrderBook::getHighPrice(entries) << std::endl;
 }
 
@@ -201,7 +212,15 @@ void CommandProcessor::predict(const std::vector<std::string>& args)
         return;
     }
 
-    double prediction = orderBook.predict(maxMin, product, orderBookType, currentTime);
+    double prediction;
+    try
+    {
+        prediction = orderBook.predict(maxMin, product, orderBookType, currentTime);
+    } catch (std::runtime_error const &e)
+    {
+        std::cout << promt << "Prediction error: " << e.what() << std::endl;
+        return;
+    }
     std::cout << promt << "The predicted " + maxMin + " " + orderBookTypeString + " price for " << product << " is " << prediction << std::endl;
 }
 
@@ -245,6 +264,11 @@ void CommandProcessor::avg(const std::vector<std::string>& args)
 
     std::vector<std::string> timestamps = orderBook.getLastTimestamps(currentTime, timesteps);
     std::vector<OrderBookEntry> entries = orderBook.getOrders(orderBookType, product, timestamps);
+    if (entries.empty())
+    {
+        std::cout << promt << "No orders found matching the criteria." << std::endl;
+        return;
+    }
     double average = OrderBook::getAveragePrice(entries);
     std::cout << promt << "The average " << product << " " << orderBookTypeString << " price over the last " << timesteps << " was " << average << std::endl;
 }
@@ -286,6 +310,11 @@ void CommandProcessor::volume(const std::vector<std::string>& args)
 
     std::vector<std::string> timestamps = orderBook.getLastTimestamps(currentTime, timesteps);
     std::vector<OrderBookEntry> entries = orderBook.getOrders(orderBookType, product, timestamps);
+    if (entries.empty())
+    {
+        std::cout << promt << "No orders found matching the criteria." << std::endl;
+        return;
+    }
     double average = OrderBook::getTotalVolume(entries);
     std::cout << promt << "The volume of " << product << " " << orderBookTypeString << " over the last " << timesteps << " was " << average << std::endl;
 }
